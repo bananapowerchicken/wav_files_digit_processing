@@ -1,0 +1,6 @@
+*.exe
+*.ilk
+*.pdb
+/Debug/*
+/ipch/*
+/wav_files_digit_proc/Debug/*
