@@ -2,6 +2,7 @@
 
 #include <iostream> 
 #include <fstream> 
+#include <vector>
 
 // заголовок показывает проигрывателю, как надо читать данный аудиофайл. 
 struct Header 
@@ -34,7 +35,18 @@ int main( int argc, char ** argv )
 	short * data_buf = new short[h.subchunk2Size >> 1]; //  динамический массив-буфер дл€ считывани€ информации о файле
 	std::cout << data_buf << '\n';
 
+	// ввожу векторы вместо динамических массивов
+	std::vector<char> dbf(h.subchunk2Size );
+	
+	char tmp;
+	
+	while (f >> tmp)
+	{
+		dbf.push_back(tmp); // корректно ли здесь читаетс€? как это проверить?
+	}
+	
 	f.read( (char*) data_buf, h.subchunk2Size);
+	
 	
 	Header hout = h;
 	hout.subchunk2Size = h.subchunk2Size / 2;
@@ -45,6 +57,8 @@ int main( int argc, char ** argv )
 	{
 		data_buf_out[i] = data_buf[i]; // измен€ю сэмплы
 		//std::cout << data_buf[i] << " -> " << data_buf_out[i] << '\n';
+
+
 	}
 	
 
